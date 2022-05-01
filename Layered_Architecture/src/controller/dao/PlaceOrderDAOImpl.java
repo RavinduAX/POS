@@ -59,4 +59,13 @@ public class PlaceOrderDAOImpl {
             cmbCustomerId.getItems().add(rst.getString("id"));
         }
     }
+
+    public void loadAllItemCodes(JFXComboBox<String> cmbItemCode) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT * FROM Item");
+        while (rst.next()) {
+            cmbItemCode.getItems().add(rst.getString("code"));
+        }
+    }
 }
