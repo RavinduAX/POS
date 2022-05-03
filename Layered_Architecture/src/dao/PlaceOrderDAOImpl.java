@@ -1,4 +1,4 @@
-package controller.dao;
+package dao;
 
 import com.jfoenix.controls.JFXComboBox;
 import db.DBConnection;
