@@ -1,14 +1,40 @@
 package dao;
 
-import com.jfoenix.controls.JFXComboBox;
-import db.DBConnection;
 import model.CustomerDTO;
-import model.ItemDTO;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-public class PlaceOrderDAOImpl {
+public class OrderDetailsDAOImpl implements CustomerDAO {
+    @Override
+    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
+        return null;
+    }
 
+    @Override
+    public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String genarateNewId() throws SQLException, ClassNotFoundException {
+        return null;
+    }
 //    public CustomerDTO searchCustomer(Connection connection, String newValue) throws SQLException {
 //        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
 //        pstm.setString(1, newValue + "");
@@ -78,6 +104,4 @@ public class PlaceOrderDAOImpl {
 //        ItemDTO item = new ItemDTO(code, rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
 //        return item;
 //    }
-
-
 }

@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dao.OrderDetailsDAOImpl;
 import dao.PlaceOrderDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
@@ -104,9 +105,9 @@ public class PlaceOrderFormController {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
-                        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+                        OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
 
-                        txtCustomerName.setText((placeOrderDAO.searchCustomer(connection,newValue)).getName());
+                        txtCustomerName.setText((orderDetailsDAO.searchCustomer(connection,newValue)).getName());
                     } catch (SQLException e) {
                         new Alert(Alert.AlertType.ERROR, "Failed to find the customer " + newValue + "" + e).show();
                     }
@@ -134,8 +135,8 @@ public class PlaceOrderFormController {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
 
-                    PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-                    ItemDTO item = placeOrderDAO.findItem(newItemCode);
+                    OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+                    ItemDTO item = orderDetailsDAO.findItem(newItemCode);
 
                     txtDescription.setText(item.getDescription());
                     txtUnitPrice.setText(item.getUnitPrice().setScale(2).toString());
@@ -181,23 +182,23 @@ public class PlaceOrderFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
 
-        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-        return placeOrderDAO.existItem(code);
+        OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+        return orderDetailsDAO.existItem(code);
 
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
 
-        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-        return placeOrderDAO.existCustomer(id);
+        OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+        return orderDetailsDAO.existCustomer(id);
 
     }
 
     public String generateNewOrderId() {
         try {
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            placeOrderDAO.generateNewOrderId();
+            OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+            orderDetailsDAO.generateNewOrderId();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
@@ -210,8 +211,8 @@ public class PlaceOrderFormController {
     private void loadAllCustomerIds() {
         try {
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            placeOrderDAO.loadAllCustomerIds(cmbCustomerId);
+            OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+            orderDetailsDAO.loadAllCustomerIds(cmbCustomerId);
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load customer ids").show();
@@ -223,8 +224,8 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            placeOrderDAO.loadAllItemCodes(cmbItemCode);
+            OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+            orderDetailsDAO.loadAllItemCodes(cmbItemCode);
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -389,8 +390,8 @@ public class PlaceOrderFormController {
     public ItemDTO findItem(String code) {
         try {
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            ItemDTO item = placeOrderDAO.findItems(code);
+            OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
+            ItemDTO item = orderDetailsDAO.findItems(code);
             return item;
 
         } catch (SQLException e) {
