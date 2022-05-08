@@ -5,29 +5,29 @@ import model.CustomerDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements CustomerDAO {
+public class ItemDAOImpl implements CrudDAO {
     @Override
-    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -35,6 +35,7 @@ public class ItemDAOImpl implements CustomerDAO {
     public String genarateNewId() throws SQLException, ClassNotFoundException {
         return null;
     }
+
 
 //    public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
 //        Connection connection = DBConnection.getDbConnection().getConnection();
