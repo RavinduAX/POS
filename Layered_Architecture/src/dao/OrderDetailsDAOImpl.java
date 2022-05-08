@@ -7,27 +7,27 @@ import java.util.ArrayList;
 
 public class OrderDetailsDAOImpl implements CrudDAO {
     @Override
-    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Object> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Object dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Object dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+    public boolean exist(Object id) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(Object id) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -35,6 +35,7 @@ public class OrderDetailsDAOImpl implements CrudDAO {
     public String genarateNewId() throws SQLException, ClassNotFoundException {
         return null;
     }
+
 
 //    public CustomerDTO searchCustomer(Connection connection, String newValue) throws SQLException {
 //        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
