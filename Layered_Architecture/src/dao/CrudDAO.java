@@ -13,6 +13,8 @@ public interface CrudDAO<T, ID> {
 
     public boolean update(T dto) throws SQLException, ClassNotFoundException;
 
+    public T search(ID id) throws SQLException, ClassNotFoundException;
+
     public boolean exist(ID id) throws SQLException, ClassNotFoundException;
 
     public boolean delete(ID id) throws SQLException, ClassNotFoundException;
