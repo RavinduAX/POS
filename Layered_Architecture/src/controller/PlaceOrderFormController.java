@@ -60,11 +60,11 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    CustomerDAO customerDAO = new CustomerDAOImpl();
-    ItemDAO itemDAO = new ItemDAOImpl();
-    OrderDAO orderDAO = new OrderDAOImpl();
-    OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOImpl();
-   // QueryDAO queryDAO = new QueryDAOImpl();
+//    CustomerDAO customerDAO = new CustomerDAOImpl();
+//    ItemDAO itemDAO = new ItemDAOImpl();
+//    OrderDAO orderDAO = new OrderDAOImpl();
+//    OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOImpl();
+//    QueryDAO queryDAO = new QueryDAOImpl();
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -331,56 +331,56 @@ public class PlaceOrderFormController {
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
         /*Transaction*/
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        try {
-            if (orderDAO.exist(orderId)) {
-            }
-            connection.setAutoCommit(false);
-            boolean save = orderDAO.save(new OrderDTO(orderId, orderDate, customerId));
-
-            if (save) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-//            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-
-            for (OrderDetailDTO detail : orderDetails) {
-
-                boolean save1 = orderDetailsDAO.save(detail);
-
-                if (!save1) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                    return false;
-                }
-
-//                //Search & Update Item
-                ItemDTO item = findItem(detail.getItemCode());
-                item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
-
-                //DI
-                CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
-                boolean update = itemDAO.update(item);
-
-                if (!update) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                    return false;
-                }
-            }
-
-            connection.commit();
-            connection.setAutoCommit(true);
-            return true;
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
+//        Connection connection = DBConnection.getDbConnection().getConnection();
+//        try {
+//            if (orderDAO.exist(orderId)) {
+//            }
+//            connection.setAutoCommit(false);
+//            boolean save = orderDAO.save(new OrderDTO(orderId, orderDate, customerId));
+//
+//            if (save) {
+//                connection.rollback();
+//                connection.setAutoCommit(true);
+//                return false;
+//            }
+//
+////            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
+//
+//            for (OrderDetailDTO detail : orderDetails) {
+//
+//                boolean save1 = orderDetailsDAO.save(detail);
+//
+//                if (!save1) {
+//                    connection.rollback();
+//                    connection.setAutoCommit(true);
+//                    return false;
+//                }
+//
+////                //Search & Update Item
+//                ItemDTO item = findItem(detail.getItemCode());
+//                item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
+//
+//                //DI
+//                CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
+//                boolean update = itemDAO.update(item);
+//
+//                if (!update) {
+//                    connection.rollback();
+//                    connection.setAutoCommit(true);
+//                    return false;
+//                }
+//            }
+//
+//            connection.commit();
+//            connection.setAutoCommit(true);
+//            return true;
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
     }
 
 
