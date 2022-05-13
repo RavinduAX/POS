@@ -12,6 +12,7 @@ import model.OrderDetailDTO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseOrderBOImpl {
@@ -76,8 +77,27 @@ public class PurchaseOrderBOImpl {
         return customerDAO.search(id);
     }
 
-    public ItemDTO findItem(String code) throws SQLException, ClassNotFoundException {
+    public ItemDTO searchItem(String code) throws SQLException, ClassNotFoundException {
         return itemDAO.search(code);
     }
 
+    public boolean checkItemIsAvailable(String code) throws SQLException, ClassNotFoundException {
+        return itemDAO.exist(code);
+    }
+
+    public boolean checkCustomerIsAvailable(String id) throws SQLException, ClassNotFoundException{
+        return customerDAO.exist(id);
+    }
+
+    public String generateNewOrderID() throws SQLException, ClassNotFoundException {
+        return orderDAO.genarateNewId();
+    }
+
+    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
+        return customerDAO.getAll();
+    }
+
+    public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
+        return itemDAO.getAll();
+    }
 }
