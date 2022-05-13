@@ -4,6 +4,7 @@ import dao.CrudDAO;
 import dao.custom.*;
 import dao.custom.impl.*;
 import db.DBConnection;
+import model.CustomerDTO;
 import model.ItemDTO;
 import model.OrderDTO;
 import model.OrderDetailDTO;
@@ -70,4 +71,13 @@ public class PurchaseOrderBOImpl {
 
      //   return false;
     }
+
+    public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
+        return customerDAO.search(id);
+    }
+
+    public ItemDTO findItem(String code) throws SQLException, ClassNotFoundException {
+        return itemDAO.search(code);
+    }
+
 }

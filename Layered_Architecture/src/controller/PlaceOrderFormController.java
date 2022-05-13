@@ -1,5 +1,6 @@
 package controller;
 
+import bo.PurchaseOrderBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -120,9 +121,10 @@ public class PlaceOrderFormController {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
-                        CustomerDTO search = customerDAO.search(newValue + "");
-
+                        PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
+                        CustomerDTO search = purchaseOrderBO.searchCustomer(newValue + "");
                         txtCustomerName.setText(search.getName());
+
                     } catch (SQLException e) {
                         new Alert(Alert.AlertType.ERROR, "Failed to find the customer " + newValue + "" + e).show();
                     }
@@ -149,7 +151,9 @@ public class PlaceOrderFormController {
                     if (!existItem(newItemCode + "")) {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
-                    ItemDTO item = itemDAO.search(newItemCode + "");
+          //          ItemDTO item = itemDAO.search(newItemCode + "");
+                    PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
+                    ItemDTO item = purchaseOrderBO.findItem(newItemCode + "");
 
                     txtDescription.setText(item.getDescription());
                     txtUnitPrice.setText(item.getUnitPrice().setScale(2).toString());
@@ -329,58 +333,17 @@ public class PlaceOrderFormController {
         calculateTotal();
     }
 
-    public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
-        /*Transaction*/
-//        Connection connection = DBConnection.getDbConnection().getConnection();
-//        try {
-//            if (orderDAO.exist(orderId)) {
-//            }
-//            connection.setAutoCommit(false);
-//            boolean save = orderDAO.save(new OrderDTO(orderId, orderDate, customerId));
-//
-//            if (save) {
-//                connection.rollback();
-//                connection.setAutoCommit(true);
-//                return false;
-//            }
-//
-////            stm = connection.prepareStatement("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
-//
-//            for (OrderDetailDTO detail : orderDetails) {
-//
-//                boolean save1 = orderDetailsDAO.save(detail);
-//
-//                if (!save1) {
-//                    connection.rollback();
-//                    connection.setAutoCommit(true);
-//                    return false;
-//                }
-//
-////                //Search & Update Item
-//                ItemDTO item = findItem(detail.getItemCode());
-//                item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
-//
-//                //DI
-//                CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
-//                boolean update = itemDAO.update(item);
-//
-//                if (!update) {
-//                    connection.rollback();
-//                    connection.setAutoCommit(true);
-//                    return false;
-//                }
-//            }
-//
-//            connection.commit();
-//            connection.setAutoCommit(true);
-//            return true;
-//
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
+    public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
+        //Tight Coupling
+        //DI
+        PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
+        try {
+            return purchaseOrderBO.purchaseOrder(orderId, orderDate, customerId, orderDetails);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
