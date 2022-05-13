@@ -24,6 +24,10 @@ public class CustomDTO {
     public CustomDTO() {
     }
 
+    public CustomDTO(String oid, LocalDate parse, String customerID, String itemCode, int qty, BigDecimal unitPrice) {
+
+    }
+
     public String getId() {
         return id;
     }
