@@ -1,5 +1,6 @@
 package controller;
 
+import bo.ItemBO;
 import bo.ItemBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -42,6 +43,8 @@ public class ManageItemsFormController {
     public JFXTextField txtUnitPrice;
     public JFXButton btnAddNewItem;
 
+    ItemBO itemBO = new ItemBOImpl();
+
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblItems.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -77,7 +80,6 @@ public class ManageItemsFormController {
         try {
             /*Get all items*/
             //DI tight cc
-            ItemBOImpl itemBO = new ItemBOImpl();
             ArrayList<ItemDTO> allItems = itemBO.getAllItems();
 
             for(ItemDTO item : allItems){
@@ -141,7 +143,6 @@ public class ManageItemsFormController {
             }
 
             //DI tight coupling
-            ItemBOImpl itemBO = new ItemBOImpl();
             itemBO.deleteItems(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
@@ -184,7 +185,6 @@ public class ManageItemsFormController {
                 //Save Item
 
                 //DI  Loose Coupling
-                ItemBOImpl itemBO = new ItemBOImpl();
                 itemBO.saveItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -202,7 +202,6 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
                 //DI   Tight coupling
-                ItemBOImpl itemBO = new ItemBOImpl();
                 itemBO.updateItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
@@ -223,7 +222,6 @@ public class ManageItemsFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
         //DI   tight coupling
-        ItemBOImpl itemBO = new ItemBOImpl();
         return itemBO.itemExists(code);
     }
 
@@ -231,7 +229,6 @@ public class ManageItemsFormController {
     private String generateNewId() {
         try {
             //DI Tight coupling
-            ItemBOImpl itemBO = new ItemBOImpl();
             itemBO.generateNewItemCode();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
