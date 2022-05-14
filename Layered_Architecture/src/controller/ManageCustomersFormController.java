@@ -1,5 +1,6 @@
 package controller;
 
+import bo.CustomerBO;
 import bo.CustomerBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -42,6 +43,8 @@ public class ManageCustomersFormController{
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
+    CustomerBO customerBO = new CustomerBOImpl();
+
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -75,7 +78,6 @@ public class ManageCustomersFormController{
         /*Get all customers*/
         try {
             //DI   //Tight coupling
-            CustomerBOImpl customerBO = new CustomerBOImpl();
             ArrayList<CustomerDTO> allCustomers = customerBO.getAllCustomers();
 
             for(CustomerDTO customer : allCustomers){
@@ -149,7 +151,6 @@ public class ManageCustomersFormController{
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
                  //Di   loose coupling
-                CustomerBOImpl customerBO = new CustomerBOImpl();
                 customerBO.saveCustomer(new CustomerDTO(id, name, address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -167,7 +168,6 @@ public class ManageCustomersFormController{
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
                 //Di        Tight C
-                CustomerBOImpl customerBO = new CustomerBOImpl();
                 customerBO.updateCustomer(new CustomerDTO(id, name, address));
 
             } catch (SQLException e) {
@@ -188,7 +188,6 @@ public class ManageCustomersFormController{
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         //DI        Tight CC
-        CustomerBOImpl customerBO = new CustomerBOImpl();
         return customerBO.customerExists(id);
     }
 
@@ -202,7 +201,6 @@ public class ManageCustomersFormController{
             }
 
             //DI        Tight CC
-            CustomerBOImpl customerBO = new CustomerBOImpl();
             customerBO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
@@ -219,7 +217,6 @@ public class ManageCustomersFormController{
     private String generateNewId() {
         try {
             //DI Coupling
-            CustomerBOImpl customerBO = new CustomerBOImpl();
             return customerBO.generateNewCustomerID();
 
         } catch (SQLException e) {
