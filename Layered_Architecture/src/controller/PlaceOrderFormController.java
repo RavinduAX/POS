@@ -60,13 +60,6 @@ public class PlaceOrderFormController {
 
     PurchaseOrderBO purchaseOrderBO = new PurchaseOrderBOImpl();
 
-//    CustomerDAO customerDAO = new CustomerDAOImpl();
-//    ItemDAO itemDAO = new ItemDAOImpl();
-//    OrderDAO orderDAO = new OrderDAOImpl();
-//    OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOImpl();
-//    QueryDAO queryDAO = new QueryDAOImpl();
-
-
     public void initialize() throws SQLException, ClassNotFoundException {
 
      //   queryDAO.searchOrderByOrderID("kdkd");
