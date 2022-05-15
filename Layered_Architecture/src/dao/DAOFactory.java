@@ -1,5 +1,6 @@
 package dao;
 
+import dao.custom.impl.*;
 import db.DBConnection;
 
 public class DAOFactory {
@@ -12,22 +13,26 @@ public class DAOFactory {
         return daoFactory == null ? daoFactory=new DAOFactory() : daoFactory ;
     }
 
+    //public final static integer values
     public enum DAOTypes {
         CUSTOMER, ITEM, ORDER, ORDERDETAILS,QUERYDAO
     }
 
-    public void getDAO(DAOTypes types){
+    //method for hide the object creation logic
+    public SuperDAO getDAO(DAOTypes types){
         switch (types) {
             case CUSTOMER:
-                return;
+                return new CustomerDAOImpl();
             case ITEM:
-                return;
+                return new ItemDAOImpl();
             case ORDER:
-                return;
+                return new OrderDAOImpl();
             case ORDERDETAILS:
-                return;
+                return new OrderDetailsDAOImpl();
             case QUERYDAO:
-                return;
+                return new QueryDAOImpl();
+            default:
+                return null;
         }
     }
 
