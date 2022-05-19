@@ -15,7 +15,7 @@ public class DAOFactory {
 
     //public final static integer values
     public enum DAOTypes {
-        CUSTOMER, ITEM, ORDER, ORDERDETAILS,QUERYDAO
+        CUSTOMER, ITEM, ORDER, ORDERDETAILS, QUERYDAO
     }
 
     //method for hide the object creation logic
