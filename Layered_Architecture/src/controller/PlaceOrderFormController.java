@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import db.DBConnection;
+import dto.OrderDTO;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
@@ -333,7 +334,8 @@ public class PlaceOrderFormController {
         //Tight Coupling
         //DI
         try {
-            return purchaseOrderBO.purchaseOrder(orderId, orderDate, customerId, orderDetails);
+            OrderDTO orderDTO = new OrderDTO(orderId, orderDate, customerId, orderDetails);
+            return purchaseOrderBO.purchaseOrder(orderDTO);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
